@@ -7,6 +7,10 @@ a.brand:hover {
   text-decoration: none; 
 }
 
+li#loading {
+  margin-top: 10px;
+}
+
 div.item {
 overflow:hidden;
 }

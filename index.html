@@ -23,12 +23,14 @@
     google.load("feeds", "1");
     var BS = {};
     BS.currentLayout = 'span16';
+    BS.currentItem = 0;
+    BS.totalItems = 25;
 
     function initialize(feed) {
       //var feed = new google.feeds.Feed("http://blog.vipepower.com/feed/");
       //var feed = new google.feeds.Feed("http://news.ycombinator.com/rss");
       var feed = new google.feeds.Feed(feed);
-      feed.setNumEntries(100);
+      feed.setNumEntries(BS.totalItems);
       feed.includeHistoricalEntries();
       feed.load(function(result) {
         if (!result.error) {
@@ -53,6 +55,13 @@
     function gotSummaries(oembed, dict) {
       var elem = $(dict.node);
       if (! (oembed) ) { return null; }
+      BS.currentItem++;
+      if(BS.currentItem < BS.totalItems) {
+        $('li#loading').text('Loading: ' + BS.currentItem + '/' + BS.totalItems);
+      }
+      else {
+        $('li#loading').text('Done').fadeOut('slow');
+      }
       //var provider = oembed.provider_name ? '<small><a href="'+oembed.provider_url+'" class="provider">'+oembed.provider_name+'</a></small> - ' : '';
       var provider = '<small>'+oembed.provider_name+'</small>' || '';
       if(!oembed.description) {
@@ -118,6 +127,19 @@
     });
 
     </script>
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-18692812-2']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
   </head>
 
   <body>
@@ -148,13 +170,14 @@
               </ul>
             </li>
             <li><a href="#about" data-controls-modal="about" data-backdrop="static">About</a></li>
+            <li id="loading" class="label">Loading...</li>
           </ul>
         </div>
       </div>
     </div>
     <div id="about" class="modal hide fade in">
       <div class="modal-header"><a href="#" class="close">&times;</a><h3>About</h3></div>
-      <div class="modal-body">BS News - Bootstrap Feed reader experiment: impressed with Twitter's Bootstrap, I set out to make a JavaScript-only app to learn bootstrap and demonstrate the features to others.</div>
+      <div class="modal-body">BS News - Bootstrap Feed reader experiment: impressed with Twitter's Bootstrap, I set out to make a JavaScript-only app to learn bootstrap for fun and profit. <a href="https://github.com/iguana/BS-News" target="_blank">View the code on GitHub</a>.</div>
       <div class="modal-footer">&copy; 2011 BS News</div>
     </div>
     <div id="custom-feed" class="modal hide fade in">
@@ -175,7 +198,7 @@
       <div id="content" class="content">
       </div>
       <footer>
-        <p>&copy; 2011 BS News. Made with <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>. And love, lots of love. </p>
+        <p>&copy; 2011 BS News. Made with <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>. And love, lots of love. <a href="https://github.com/iguana/BS-News" target="_blank">Want the code?</a></p>
       </footer>
     </div>
   </body>
