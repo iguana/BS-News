@@ -1,0 +1,36 @@
+body {
+  background: url('../images/light_alu.png') repeat;
+  background-attachment:fixed;
+}
+
+a.brand:hover {
+  text-decoration: none; 
+}
+
+div.item {
+overflow:hidden;
+}
+
+div.item.span6 img {
+  max-width: 340px;
+  display:block;
+}
+
+div.item.span4 img {
+  max-width: 220px;
+  display:block;
+}
+
+div.item.span2 img {
+  max-width: 100px;
+  display:block;
+}
+
+div.item a {
+  display:block;
+}
+div.item a.provider {
+}
+
+blockquote.hasImg {
+}
